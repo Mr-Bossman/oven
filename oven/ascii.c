@@ -33,3 +33,7 @@ extern void Cprint(void (*function)(unsigned char),const char* str) {
 	register size_t size = strlen(str);
 	for(uint8_t i = 0; i < size;i++)(*function)(str[i]);
 }
+extern void memprint(void (*function)(unsigned char),unsigned char arr,size_t size){
+	for(uint8_t i = 0; i < size;i++)(*function)(arr);
+	
+}
