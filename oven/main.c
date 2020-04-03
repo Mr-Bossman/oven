@@ -2,6 +2,7 @@
 #include "avr/interrupt.h"
 
 #include "commonH.h"
+#include "UI.h"
 
 #include "timer.h"
 #include "tempControl.h"
@@ -11,10 +12,11 @@
 int main(void)
 {
 	lcdbegin(16,2);
-	Cprint(lcdwrite,"Hello world!");
 	ADCInit();
 	initTime();
 	sei();
+	beginUI();
+
 	while (1)
 	{
 		lcdsetCursor(0,1);

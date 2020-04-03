@@ -6,6 +6,8 @@ ascii.c
 
 analog.c
 
+UI.c
+
 lcd.c
 
 tempControl.c

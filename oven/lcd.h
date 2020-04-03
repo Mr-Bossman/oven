@@ -60,7 +60,6 @@ extern void lcdrightToLeft();
 extern void lcdautoscroll();
 extern void lcdnoAutoscroll();
 
-extern void lcdsetRowOffsets(int row1, int row2, int row3, int row4);
 extern void lcdcreateChar(uint8_t, uint8_t[]);
 extern void lcdsetCursor(uint8_t, uint8_t);
 extern void lcdsend(uint8_t, bool);
