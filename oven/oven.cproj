@@ -145,10 +145,19 @@
     </ToolchainSettings>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="analog.h">
+      <SubType>compile</SubType>
+    </Compile>
     <Compile Include="ascii.c">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="ascii.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="analog.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="commonH.h">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="lcd.h">

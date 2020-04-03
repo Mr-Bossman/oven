@@ -18,7 +18,7 @@ extern void lcdbegin(uint8_t cols, uint8_t lines) {
 	lcdcommand(LCD_FUNCTIONSET | _displayfunction);
 	_delay_ms(5);
 	lcdcommand(LCD_FUNCTIONSET | _displayfunction);
-	_delay_ms(1);
+	_delay_us(150);
 	lcdcommand(LCD_FUNCTIONSET | _displayfunction);
 	_displaycontrol = LCD_DISPLAYON | LCD_CURSOROFF | LCD_BLINKOFF;
 	lcddisplay();
@@ -129,11 +129,11 @@ extern inline void lcdcommand(uint8_t value) {
 }
 static void pulseEnable() {
 	PORTB &= ~(1<<1);
-	_delay_ms(10);
+	_delay_us(1);
 	PORTB |= 1<<1;
-	_delay_ms(10);
+	_delay_us(1);
 	PORTB &= ~(1<<1);
-	_delay_ms(10);
+	_delay_us(100);
 }
 
 static void lcdwrite8bits(uint8_t value) {

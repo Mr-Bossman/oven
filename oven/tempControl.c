@@ -1,5 +1,7 @@
 #include "tempControl.h"
-
+static void temp4Time(TEMPOP timedHeat);
+static uint16_t setTemp(TEMPOP heat);
+static void riseTemp4Time(TEMPOP timedHeat);
 extern void temps(TEMPOP temp) {
 	if(temp.DPS){
 		riseTemp4Time(temp);
