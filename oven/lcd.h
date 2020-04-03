@@ -1,8 +1,6 @@
 #ifndef LCD_H
 #define LCD_H
-#include "util/delay.h"
-#include <stdbool.h>
-#include <avr/io.h>
+#include "commonH.h"
 
 // commands
 #define LCD_CLEARDISPLAY 0x01

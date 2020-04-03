@@ -4,6 +4,8 @@
 
 ascii.c
 
+analog.c
+
 lcd.c
 
 tempControl.c
