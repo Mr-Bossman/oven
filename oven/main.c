@@ -15,9 +15,8 @@ int main(void)
 	while (1)
 	{
 		lcdsetCursor(0,1);
-		unsigned char* arr = NULL;
-		print(lcdwrite,arr,int8_2_char(&arr,(Time()/1000)));
-		free(arr);
+		unsigned char arr[3];
+		print(lcdwrite,arr,int8_2_char(arr,(uint8_t)(Time()/1000)));
 		
 
 	}
