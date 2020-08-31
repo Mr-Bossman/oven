@@ -1,7 +1,8 @@
-#ifndef LCD_H
-#define LCD_H
-#include "commonH.h"
+#include "common.h"
 
+
+#ifndef LCD_H_
+#define LCD_H_
 // commands
 #define LCD_CLEARDISPLAY 0x01
 #define LCD_RETURNHOME 0x02
@@ -39,32 +40,38 @@
 #define LCD_1LINE 0x00
 #define LCD_5x10DOTS 0x04
 #define LCD_5x8DOTS 0x00
+uint8_t _numlines;
+uint8_t _row_offsets[4];
+
+	extern void lcd_init(uint8_t cols, uint8_t rows);
+
+	extern void lcd_clear();
+	extern void lcd_home();
+
+	extern void lcd_noDisplay();
+	extern void lcd_display();
+	extern void lcd_noBlink();
+	extern void lcd_blink();
+	extern void lcd_noCursor();
+	extern void lcd_cursor();
+	extern void lcd_scrollDisplayLeft();
+	extern void lcd_scrollDisplayRight();
+	extern void lcd_leftToRight();
+	extern void lcd_rightToLeft();
+	extern void lcd_autoscroll();
+	extern void lcd_noAutoscroll();
+
+	extern void lcd_setRowOffsets(int row1, int row2, int row3, int row4);
+	extern void lcd_createChar(uint8_t, uint8_t[]);
+	extern void lcd_setCursor(uint8_t, uint8_t);
+	extern size_t lcd_write(uint8_t);
+	extern void lcd_command(uint8_t);
+	
+	char* console[15];
+	extern uint8_t lcd_print(char str[]);
+	extern void lcd_updateScreen(uint8_t line);
+	extern inline void lcd_printline(char str[]);
 
 
 
-extern void lcdbegin(uint8_t cols, uint8_t rows);
-
-extern void lcdclear();
-extern void lcdhome();
-
-extern void lcdnoDisplay();
-extern void lcddisplay();
-extern void lcdnoBlink();
-extern void lcdblink();
-extern void lcdnoCursor();
-extern void lcdcursor();
-extern void lcdscrollDisplayLeft();
-extern void lcdscrollDisplayRight();
-extern void lcdleftToRight();
-extern void lcdrightToLeft();
-extern void lcdautoscroll();
-extern void lcdnoAutoscroll();
-
-extern void lcdcreateChar(uint8_t, uint8_t[]);
-extern void lcdsetCursor(uint8_t, uint8_t);
-extern void lcdsend(uint8_t, bool);
-
-extern void lcdcommand(uint8_t value);
-extern void lcdwrite(uint8_t value);
-
-#endif
+#endif /* INCFILE1_H_ */
