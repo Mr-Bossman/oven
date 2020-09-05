@@ -1,13 +1,13 @@
 #include "analog.h"
 
-extern void InitADC()
+void InitADC()
 {
 	// Select Vref=AVcc
 	ADMUX |= (1<<REFS0);
 	//set prescaller to 128 and enable ADC
 	ADCSRA |= (1<<ADPS1)|(1<<ADEN);
 }
-extern uint16_t ReadADC(uint8_t ADCchannel)
+uint16_t ReadADC(uint8_t ADCchannel)
 {
 	//select ADC channel with safety mask
 	ADMUX = (ADMUX & 0xF0) | (ADCchannel & 0x0F);

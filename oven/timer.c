@@ -1,7 +1,7 @@
 #include "timer.h"
 #define milli (uint16_t)(F_CPU/128000)
 static volatile uint32_t milliSeconds = 0;
-extern void initTime(){
+void initTime(){
 	sei();
 	TCCR1A = 3;
 	TCCR1B =  16| 3; // mode to count to ocrnA then restet // set no pre scalar 16MHZ
@@ -10,11 +10,11 @@ extern void initTime(){
    
 }
 //retuns milliseconds
-extern uint32_t Time(){
+uint32_t Time(){
 	return milliSeconds;
 }
 
-extern void timerReset(){
+void timerReset(){
 	TCNT1 = 0;
 	milliSeconds = 0;
 }

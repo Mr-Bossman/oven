@@ -19,15 +19,14 @@ static int16_t getTempRise(){
 }
 
 static uint16_t getTime(){
-			return menu2("Enter Duration S:",240,10);
+			return menu2("Enter Time S:",240,10);
 }
-extern void Options(uint32_t data[6]){
-	
+void Options(uint32_t * data){
 	for(uint8_t i = 0; i < 6;i++){
 		uint8_t option = menu1("Select an option:\n>Set ramp Temp...\n Set Temp...\n C or F...\n Start...",4);
 		switch (option){
 			case 0:{
-				data[i] = (uint32_t) getTemp() | ( ( (uint32_t)getTime() & ~(1ul << 15)) << 16) ;
+				data[i] = (uint32_t) getTempRise() | ( ( (uint32_t)getTime() & ~(1ul << 15)) << 16) ;
 				continue;
 			}
 			case 1:{

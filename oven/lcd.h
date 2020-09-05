@@ -43,34 +43,34 @@
 uint8_t _numlines;
 uint8_t _row_offsets[4];
 
-	extern void lcd_init(uint8_t cols, uint8_t rows);
+	void lcd_init(uint8_t cols, uint8_t rows);
 
-	extern void lcd_clear();
-	extern void lcd_home();
+	void lcd_clear();
+	void lcd_home();
 
-	extern void lcd_noDisplay();
-	extern void lcd_display();
-	extern void lcd_noBlink();
-	extern void lcd_blink();
-	extern void lcd_noCursor();
-	extern void lcd_cursor();
-	extern void lcd_scrollDisplayLeft();
-	extern void lcd_scrollDisplayRight();
-	extern void lcd_leftToRight();
-	extern void lcd_rightToLeft();
-	extern void lcd_autoscroll();
-	extern void lcd_noAutoscroll();
+	void lcd_noDisplay();
+	void lcd_display();
+	void lcd_noBlink();
+	void lcd_blink();
+	void lcd_noCursor();
+	void lcd_cursor();
+	void lcd_scrollDisplayLeft();
+	void lcd_scrollDisplayRight();
+	void lcd_leftToRight();
+	void lcd_rightToLeft();
+	void lcd_autoscroll();
+	void lcd_noAutoscroll();
 
-	extern void lcd_setRowOffsets(int row1, int row2, int row3, int row4);
-	extern void lcd_createChar(uint8_t, uint8_t[]);
-	extern void lcd_setCursor(uint8_t, uint8_t);
-	extern size_t lcd_write(uint8_t);
-	extern void lcd_command(uint8_t);
+	void lcd_setRowOffsets(int row1, int row2, int row3, int row4);
+	void lcd_createChar(uint8_t, uint8_t[]);
+	void lcd_setCursor(uint8_t, uint8_t);
+	size_t lcd_write(uint8_t);
+	void lcd_command(uint8_t);
 	
 	char* console[15];
-	extern uint8_t lcd_print(char str[]);
-	extern void lcd_updateScreen(uint8_t line);
-	extern inline void lcd_printline(char str[]);
+	uint8_t lcd_print(char str[]);
+	void lcd_updateScreen(uint8_t line);
+	void lcd_printline(char str[]);
 
 
 

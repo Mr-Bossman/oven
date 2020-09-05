@@ -30,7 +30,7 @@ static uint8_t _displayfunction;
 // can't assume that its in that state when a sketch starts (and the
 // LiquidCrystal constructor is called).
 
-extern void lcd_init(uint8_t cols, uint8_t lines) {
+void lcd_init(uint8_t cols, uint8_t lines) {
 	memset(console,0,14);
 	uint8_t dotsize = LCD_5x8DOTS;
 	DDRD = 0xFF;
@@ -116,7 +116,7 @@ extern void lcd_init(uint8_t cols, uint8_t lines) {
 
 }
 
-extern void lcd_setRowOffsets(int row0, int row1, int row2, int row3)
+void lcd_setRowOffsets(int row0, int row1, int row2, int row3)
 {
 	_row_offsets[0] = row0;
 	_row_offsets[1] = row1;
@@ -125,19 +125,19 @@ extern void lcd_setRowOffsets(int row0, int row1, int row2, int row3)
 }
 
 /********** high level commands, for the user! */
-extern void lcd_clear()
+void lcd_clear()
 {
 	lcd_command(LCD_CLEARDISPLAY);  // clear display, set cursor position to zero
 	_delay_us(2000);  // this command takes a long time!
 }
 
-extern void lcd_home()
+void lcd_home()
 {
 	lcd_command(LCD_RETURNHOME);  // set cursor position to zero
 	_delay_us(2000);  // this command takes a long time!
 }
 
-extern void lcd_setCursor(uint8_t col, uint8_t row)
+void lcd_setCursor(uint8_t col, uint8_t row)
 {
 	const size_t max_lines = sizeof(_row_offsets) / sizeof(*_row_offsets);
 	if ( row >= max_lines ) {
@@ -151,70 +151,70 @@ extern void lcd_setCursor(uint8_t col, uint8_t row)
 }
 
 // Turn the display on/off (quickly)
-extern void lcd_noDisplay() {
+void lcd_noDisplay() {
 	_displaycontrol &= ~LCD_DISPLAYON;
 	lcd_command(LCD_DISPLAYCONTROL | _displaycontrol);
 }
-extern void lcd_display() {
+void lcd_display() {
 	_displaycontrol |= LCD_DISPLAYON;
 	lcd_command(LCD_DISPLAYCONTROL | _displaycontrol);
 }
 
 // Turns the underline cursor on/off
-extern void lcd_noCursor() {
+void lcd_noCursor() {
 	_displaycontrol &= ~LCD_CURSORON;
 	lcd_command(LCD_DISPLAYCONTROL | _displaycontrol);
 }
-extern void lcd_cursor() {
+void lcd_cursor() {
 	_displaycontrol |= LCD_CURSORON;
 	lcd_command(LCD_DISPLAYCONTROL | _displaycontrol);
 }
 
 // Turn on and off the blinking cursor
-extern void lcd_noBlink() {
+void lcd_noBlink() {
 	_displaycontrol &= ~LCD_BLINKON;
 	lcd_command(LCD_DISPLAYCONTROL | _displaycontrol);
 }
-extern void lcd_blink() {
+void lcd_blink() {
 	_displaycontrol |= LCD_BLINKON;
 	lcd_command(LCD_DISPLAYCONTROL | _displaycontrol);
 }
 
 // These commands scroll the display without changing the RAM
-extern void lcd_scrollDisplayLeft(void) {
+void lcd_scrollDisplayLeft(void) {
 	lcd_command(LCD_CURSORSHIFT | LCD_DISPLAYMOVE | LCD_MOVELEFT);
 }
-extern void lcd_scrollDisplayRight(void) {
+void lcd_scrollDisplayRight(void) {
 	lcd_command(LCD_CURSORSHIFT | LCD_DISPLAYMOVE | LCD_MOVERIGHT);
 }
 
 // This is for text that flows Left to Right
-extern void lcd_leftToRight(void) {
+void lcd_leftToRight(void) {
 	_displaymode |= LCD_ENTRYLEFT;
 	lcd_command(LCD_ENTRYMODESET | _displaymode);
 }
 
 // This is for text that flows Right to Left
-extern void lcd_rightToLeft(void) {
+void lcd_rightToLeft(void) {
 	_displaymode &= ~LCD_ENTRYLEFT;
 	lcd_command(LCD_ENTRYMODESET | _displaymode);
 }
 
 // This will 'right justify' text from the cursor
-extern void lcd_autoscroll(void) {
+void lcd_autoscroll(void) {
 	_displaymode |= LCD_ENTRYSHIFTINCREMENT;
 	lcd_command(LCD_ENTRYMODESET | _displaymode);
 }
 
 // This will 'left justify' text from the cursor
-extern void lcd_noAutoscroll(void) {
+void lcd_noAutoscroll(void) {
 	_displaymode &= ~LCD_ENTRYSHIFTINCREMENT;
 	lcd_command(LCD_ENTRYMODESET | _displaymode);
 }
 
 // Allows us to fill the first 8 CGRAM locations
 // with custom characters
-extern void lcd_createChar(uint8_t location, uint8_t charmap[]) {
+void lcd_createChar(uint8_t location, uint8_t charmap[]) {
 	location &= 0x7; // we only have 8 locations 0-7
 	lcd_command(LCD_SETCGRAMADDR | (location << 3));
 	for (int i=0; i<8; i++) {
@@ -224,11 +224,11 @@ extern void lcd_createChar(uint8_t location, uint8_t charmap[]) {
 
 /*********** mid level commands, for sending data/cmds */
 
-extern void lcd_command(uint8_t value) {
+void lcd_command(uint8_t value) {
 	lcd_send(value, 0);
 }
 
-extern size_t lcd_write(uint8_t value) {
+size_t lcd_write(uint8_t value) {
 	lcd_send(value, 1);
 	return 1; // assume sucess
 }
