@@ -4,7 +4,7 @@
 #include "lcd.h"
 #include "menus.h"
 
-extern int8_t select(){ // how many options retuns how many to add to previos options
+static int8_t select(){ // how many options retuns how many to add to previos options
 	uint16_t last =ReadADC(0);
 	if(last < 50) return -1;
 	if(last > 973) return 1;
@@ -22,7 +22,7 @@ static uint16_t mapadcsin(uint32_t low,uint32_t high)
 {
 	return ((((uint32_t)ReadADC(0)) * (high - low)) /((uint32_t) 1020)) + low;
 }
-extern uint8_t menu1(char str[],uint8_t options){
+uint8_t menu1(char str[],uint8_t options){
 	uint16_t speed = 400;
 	int8_t pos = (options-1);
     int8_t line = 0;
@@ -54,13 +54,15 @@ extern uint8_t menu1(char str[],uint8_t options){
 			}
 		}
 	}
+	while(!(PINB&(1<<2)));
+	
 	_delay_ms(300);
 	return options-(line+pos+1);
 }
 
 uint16_t menu2(char str[],uint16_t high,uint16_t low){
-	static uint16_t val;
-	static char dis[20];
+	uint16_t val = 0;
+	char dis[20] = {0};
 	while(PINB&(1<<2)){
 		val = mapadc(low,high);
 		sprintf(dis,"%s\n%u",str,val);
@@ -68,15 +70,16 @@ uint16_t menu2(char str[],uint16_t high,uint16_t low){
 		lcd_updateScreen(0);
 		_delay_ms(10);
 	}
+	while(!(PINB&(1<<2)));
 	
 	_delay_ms(300);
 	return val;
 }
 
 int16_t menu3(char str[],int16_t high,int16_t low,uint8_t place){ 
-	static int16_t val;
+	int16_t val = 0;
+	char dis[20] = {0};
 	int16_t exponent = 1;
-	static char dis[20];
 	for(uint8_t i = 0; i < place; i++) exponent *= 5 , exponent <<= 1; // ???? mult by 10 doesnt work 
 	while(PINB&(1<<2)){
 		val = mapadcsin(low,high);
@@ -85,6 +88,7 @@ int16_t menu3(char str[],int16_t high,int16_t low,uint8_t place){
 		lcd_updateScreen(0);
 		_delay_ms(10);
 	}
+	while(!(PINB&(1<<2)));
 	
 	_delay_ms(300);
 	return val;

@@ -1,7 +1,7 @@
 #include "MAX31855.h"
 
-extern uint16_t sence_temp = 0;
-extern uint16_t sence_temp_internal = 0;
+uint16_t sence_temp = 0;
+uint16_t sence_temp_internal = 0;
 
 static uint32_t spi(){
 	PORTB &= ~(1 << 5);
@@ -21,7 +21,7 @@ static uint32_t spi(){
 	return ret;
 }
 
-extern bool update_temp(){ //returns false if somthing went wrong	
+bool update_temp(){ //returns true if somthing went wrong	
 	uint32_t dat = spi();
 	sence_temp = (dat >> 18);
 	sence_temp_internal = (dat >> 4)&0xfff;

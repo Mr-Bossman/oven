@@ -21,7 +21,7 @@ main.d main.o: .././main.c .././common.h \
  c:\program\ files\ (x86)\atmel\studio\7.0\toolchain\avr8\avr8-gnu-toolchain\avr\include\stdlib.h \
  .././lcd.h .././analog.h .././timer.h \
  c:\program\ files\ (x86)\atmel\studio\7.0\toolchain\avr8\avr8-gnu-toolchain\avr\include\avr\interrupt.h \
- .././menus.h .././UI.h .././temp_control.h .././MAX31855.h
+ .././menus.h .././UI.h .././temp_control.h .././MAX31855.h .././exit.h
 
 .././common.h:
 
@@ -80,3 +80,5 @@ c:\program\ files\ (x86)\atmel\studio\7.0\toolchain\avr8\avr8-gnu-toolchain\avr\
 .././temp_control.h:
 
 .././MAX31855.h:
+
+.././exit.h:

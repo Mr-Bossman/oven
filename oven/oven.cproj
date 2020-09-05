@@ -150,6 +150,9 @@
     <Compile Include="analog.h">
       <SubType>compile</SubType>
     </Compile>
+    <Compile Include="exit.h">
+      <SubType>compile</SubType>
+    </Compile>
     <Compile Include="MAX31855.c">
       <SubType>compile</SubType>
     </Compile>

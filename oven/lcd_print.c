@@ -10,7 +10,7 @@ void pop(){
 void cls(){
 	memset(console,0,15);
 }
-extern uint8_t lcd_print(char str[]){
+uint8_t lcd_print(char str[]){
 	push(str);
 	for(uint16_t i = 0; str[i]; i++) {
 		if (str[i] == '\n')
@@ -20,7 +20,7 @@ extern uint8_t lcd_print(char str[]){
  	}
 	 return 0;
 }
-void lcd_updateScreen(uint8_t line){
+void lcd_updateScreen(uint8_t line){ // if u print to many char it duckes up
 	
 	for(int8_t l = 1; l >= 0  ;l--){
 		char * curline = console[l+line];
@@ -36,7 +36,7 @@ void lcd_updateScreen(uint8_t line){
 	}
 
 }
-extern inline void lcd_printline(char str[]){
+void lcd_printline(char str[]){
 	lcd_print(str);
 	lcd_updateScreen(0);
 }
