@@ -237,7 +237,7 @@ size_t lcd_write(uint8_t value) {
 
 // write either command or data, with automatic 4/8-bit selection
 static void lcd_send(uint8_t value, uint8_t mode) {
-	PORTB = (mode)? PORTB | 1: PORTB & ~(1);	
+	PORTB = (mode)? PORTB | 2: PORTB & ~(2);	
 	if (_displayfunction & LCD_8BITMODE) {
 		lcd_write8bits(value);
 		} else {
@@ -247,20 +247,28 @@ static void lcd_send(uint8_t value, uint8_t mode) {
 }
 
 static  void lcd_pulseEnable(void) {
-	PORTB |= 2;
+	PORTB |= 1;
 	_delay_us(1);
-	PORTB &= ~(2);
+	PORTB &= ~(1);
 	_delay_us(1);    // enable pulse must be >450ns
-	PORTB |= 2;
+	PORTB |= 1;
 	_delay_us(40);   // commands need > 37us to settle
 }
-
+uint8_t flip(uint8_t val){
+	uint8_t ret = (val&1);
+	for(uint8_t i = 0; i < 7; i++) {
+		val >>= 1;
+		ret <<= 1;
+		ret  |= (val&1);
+	}
+	return ret;
+}
 static void lcd_write4bits(uint8_t value) {
-	PORTD = value;
+	PORTD = flip(value) >> 4;
 	lcd_pulseEnable();
 }
 
 static void lcd_write8bits(uint8_t value) {
-	PORTD = value;
+	PORTD = flip(value);
 	lcd_pulseEnable();
 }

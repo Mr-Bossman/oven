@@ -40,8 +40,8 @@
         </dependencies>
       </framework-data>
     </AsfFrameworkConfig>
-    <avrtool>com.atmel.avrdbg.tool.medbg</avrtool>
-    <avrtoolserialnumber>ATML2523041800000498</avrtoolserialnumber>
+    <avrtool>com.atmel.avrdbg.tool.avrdragon</avrtool>
+    <avrtoolserialnumber>00A200000105</avrtoolserialnumber>
     <avrdeviceexpectedsignature>0x1E9516</avrdeviceexpectedsignature>
     <com_atmel_avrdbg_tool_medbg>
       <ToolOptions>
@@ -54,6 +54,18 @@
       <ToolName>mEDBG</ToolName>
     </com_atmel_avrdbg_tool_medbg>
     <avrtoolinterface>ISP</avrtoolinterface>
+    <com_atmel_avrdbg_tool_avrdragon>
+      <ToolOptions>
+        <InterfaceProperties>
+          <IspClock>125000</IspClock>
+        </InterfaceProperties>
+        <InterfaceName>ISP</InterfaceName>
+      </ToolOptions>
+      <ToolType>com.atmel.avrdbg.tool.avrdragon</ToolType>
+      <ToolNumber>00A200000105</ToolNumber>
+      <ToolName>AVR Dragon</ToolName>
+    </com_atmel_avrdbg_tool_avrdragon>
+    <avrtoolinterfaceclock>125000</avrtoolinterfaceclock>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
     <ToolchainSettings>
@@ -148,6 +160,12 @@
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="analog.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="encoder.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="encoder.h">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="exit.h">

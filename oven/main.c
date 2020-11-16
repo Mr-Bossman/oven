@@ -24,9 +24,10 @@ int main(void) {
 	initTime();
 		DDRC |= 2; // realy pin
 
-	DDRB |= (5 << 3); // init temp spi
-	PORTB |= (1 << 5);
+	//DDRB |= (5 << 3); // init temp spi
+	//PORTB |= (1 << 5);
 	PORTB |= 1<<2; //init button
+	PORTB |= 3<<3; //init button
 
 	uint32_t a[6] = {0};
 	Options(a);
