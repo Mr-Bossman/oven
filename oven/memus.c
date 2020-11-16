@@ -5,25 +5,10 @@
 #include "lcd.h"
 #include "menus.h"
 
-/*static int8_t select(){ // how many options retuns how many to add to previos options
-	/*uint16_t last =ReadADC(0);
-	if(last < 50) return -1;
-	if(last > 973) return 1;
-	return 0;
-		return going();
-}
-/*static uint16_t map(uint32_t x, uint32_t in_min, uint32_t in_max, uint32_t out_min, uint32_t out_max)
+static int16_t map(int32_t x, int32_t in_min, int32_t in_max, int32_t out_min, int32_t out_max)
 {
 	return (x - in_min) * (out_max - out_min) / (in_max - in_min) + out_min;
 }
-static int16_t mapadc(int32_t low,int32_t high)
-{
-	return ((((int32_t)usinVal()) * (high - low)) /((int32_t) 1020)) + low;
-}
-static uint16_t mapadcsin(uint32_t low,uint32_t high)
-{
-	return ((((uint32_t)usinVal()) * (high - low)) /((uint32_t) 1020)) + low;
-}*/
 uint8_t menu1(char str[],uint8_t options){
 	int8_t pos = (options-1);
     int8_t line = 0;
@@ -52,11 +37,13 @@ uint8_t menu1(char str[],uint8_t options){
 }
 
 uint16_t menu2(char str[],uint16_t high,uint16_t low){
-	uint16_t val = 0;
+	int16_t val = 0;
 	char dis[20] = {0};
 	while(PINB&(1<<2)){
 		val += check();
-		sprintf(dis,"%s\n%u",str,val);
+		if(val >= 100) val = 100;
+		if(val <= 0) val = 0;
+		sprintf(dis,"%s\n%u",str,map(val,0,100,low,high));
 		lcd_print(dis);
 		lcd_updateScreen(0);
 		_delay_ms(10);
@@ -69,12 +56,19 @@ uint16_t menu2(char str[],uint16_t high,uint16_t low){
 
 int16_t menu3(char str[],int16_t high,int16_t low,uint8_t place){ 
 	int16_t val = 0;
+	int16_t cal = 0;
 	char dis[20] = {0};
 	int16_t exponent = 1;
 	for(uint8_t i = 0; i < place; i++) exponent *= 5 , exponent <<= 1; // ???? mult by 10 doesnt work 
 	while(PINB&(1<<2)){
-		val += check();
-		sprintf(dis,"%s\n%d.%u",str,val/exponent,((val < 0)?-val:val)%exponent);
+		cal += check();
+		if(cal >= 75) cal = 75;
+		if(cal <= -75) cal = -75;
+		val = map(cal,-50,50,low,high);
+		if((val < 0))
+			sprintf(dis,"%s\n-%u.%u",str,((val < 0)?-val:val)/exponent,((val < 0)?-val:val)%exponent);
+		else 
+			sprintf(dis,"%s\n%u.%u",str,((val < 0)?-val:val)/exponent,((val < 0)?-val:val)%exponent);
 		lcd_print(dis);
 		lcd_updateScreen(0);
 		_delay_ms(10);
