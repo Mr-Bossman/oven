@@ -4,6 +4,8 @@
 
 analog.c
 
+encoder.c
+
 MAX31855.c
 
 temp_control.c
