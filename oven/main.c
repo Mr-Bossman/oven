@@ -13,11 +13,11 @@
 void screen(struct tempC data){
 		static char dis[20];
 		if(data.stableTemp)
-			sprintf(dis,"%s %u\n %u, %u",(data.stableTemp)?"s":"r",(uint16_t)(data.times-(Time()/1000)),(get_temp() >> 2),data.temp);
+			sprintf(dis,"S left %u\nTemp %u -> %u",(uint16_t)(data.times-(Time()/1000)),(get_temp() >> 2),data.temp);
 		else if (data.temp)
-			sprintf(dis,"%s %u\n %u, %u",(data.stableTemp)?"s":"r",data.rise,(get_temp() >> 2),data.temp);
+			sprintf(dis,"Rising %u\nTemp %u -> %u",data.rise,(get_temp() >> 2),data.temp);
 		else 
-			sprintf(dis,"%s %u\n %u, %u",(data.stableTemp)?"s":"r",(uint16_t)(data.times-(Time()/1000)),(get_temp() >> 2),data.rise);
+			sprintf(dis,"S left %u\n Temp %u at %u",(uint16_t)(data.times-(Time()/1000)),(get_temp() >> 2),data.rise);
 
 		lcd_print(dis);
 		lcd_updateScreen(0);
