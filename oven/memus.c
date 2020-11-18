@@ -38,12 +38,15 @@ uint8_t menu1(char str[],uint8_t options){
 
 uint16_t menu2(char str[],uint16_t high,uint16_t low){
 	int16_t val = 0;
+	int16_t cal = 0;
+
 	char dis[20] = {0};
 	while(PINB&(1<<2)){
-		val += check();
-		if(val >= 100) val = 100;
-		if(val <= 0) val = 0;
-		sprintf(dis,"%s\n%u",str,map(val,0,100,low,high));
+		cal += check();
+		if(cal >= 100) cal = 100;
+		if(cal <= 0) cal = 0;
+		val = map(cal,0,100,low,high);
+		sprintf(dis,"%s\n%u",str,val);
 		lcd_print(dis);
 		lcd_updateScreen(0);
 		_delay_ms(10);

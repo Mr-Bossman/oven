@@ -24,25 +24,31 @@ static uint16_t getTime(){
 }
 void Options(struct tempC * data){
 	for(uint8_t i = 0; i < 6;i++){
-		uint8_t option = menu1("Select an option:\n>Set ramp Temp...\n Set Temp...\n C or F...\n Start...",4);
+		uint8_t option = menu1("Select an option:\n>Set target temp...\n Set rise time...\n Set temp...\n C or F...\n Start...",5);
 		switch (option){
 			case 0:{
 				data[i].stableTemp = false;
-				data[i].times = getTime();
-				data[i].temp = getTempRise();
+				data[i].temp = getTemp();
+				data[i].rise = getTempRise();
 				continue;
 			}
 			case 1:{
+				data[i].stableTemp = false;
+				data[i].times = getTime();
+				data[i].rise = getTempRise();
+				continue;
+			}
+			case 2:{
 				data[i].stableTemp = true;
 				data[i].times = getTime();
 				data[i].temp = getTemp();
 				continue;
 			}
-			case 2:{
+			case 3:{
 				C ^= true;
 				continue;
 			}
-			case 3:{
+			case 4:{
 				break;
 			}
 		}

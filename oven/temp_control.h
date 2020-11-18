@@ -13,8 +13,11 @@ struct tempC {
 	bool stableTemp;
 	uint16_t temp;
 	uint16_t times;
+	int16_t rise;
+
 };
-void update(struct tempC* data,	void (*screen)(bool,uint16_t,uint16_t,uint16_t)); //rising or stable temp and time
+uint16_t get_temp();
+void update(struct tempC * data, void (*screen)(struct tempC)); //rising or stable temp and time
 
 
 
