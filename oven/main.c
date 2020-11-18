@@ -10,9 +10,15 @@
 #include "exit.h"
 
 #include <util/delay.h>
-void screen(bool rise,uint16_t temp,uint16_t l,uint16_t T){
+void screen(struct tempC data){
 		static char dis[20];
-		sprintf(dis,"%s %u\n %u, %u",(rise)?"s":"r",T,temp,l);
+		if(data.stableTemp)
+			sprintf(dis,"%s %u\n %u, %u",(data.stableTemp)?"s":"r",(uint16_t)(data.times-(Time()/1000)),(get_temp() >> 2),data.temp);
+		else if (data.temp)
+			sprintf(dis,"%s %u\n %u, %u",(data.stableTemp)?"s":"r",data.rise,(get_temp() >> 2),data.temp);
+		else 
+			sprintf(dis,"%s %u\n %u, %u",(data.stableTemp)?"s":"r",(uint16_t)(data.times-(Time()/1000)),(get_temp() >> 2),data.rise);
+
 		lcd_print(dis);
 		lcd_updateScreen(0);
 		_delay_ms(10);
@@ -29,10 +35,11 @@ int main(void) {
 	PORTB |= 1<<2; //init button
 	PORTB |= 3<<3; //init button
 
-	struct tempC a[6] = {0};
-	Options(a);
-	//while(1){
+	while(1){
+			struct tempC a[6] = {0};
+
+		Options(a);
 		update(a,&screen);
-	//}
+	}
 	exit_code(0);
 }
