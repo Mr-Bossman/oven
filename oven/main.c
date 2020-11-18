@@ -22,17 +22,17 @@ int main(void) {
 	lcd_init(16,2);
 	InitADC();
 	initTime();
-	DDRC |= 2; // realy pin
+	DDRC |= 4; // realy pin
 	DDRC |= (1<<5); // thermo cpule
 	DDRE |= (1<<2);
 
 	PORTB |= 1<<2; //init button
 	PORTB |= 3<<3; //init button
 
-	uint32_t a[6] = {0};
+	struct tempC a[6] = {0};
 	Options(a);
-	while(1){
+	//while(1){
 		update(a,&screen);
-	}
+	//}
 	exit_code(0);
 }

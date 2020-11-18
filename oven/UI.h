@@ -1,7 +1,9 @@
 #ifndef UI_H_
 #define UI_H_
 #include "common.h"
-void Options(uint32_t * data);
+#include "temp_control.h"
+
+void Options(struct tempC * data);
 
 
 
