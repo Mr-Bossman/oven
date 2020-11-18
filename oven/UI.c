@@ -1,6 +1,7 @@
 #include "UI.h"
 #include "common.h"
 #include "menus.h"
+#include "temp_control.h"
 
 static bool C = true;
 
@@ -21,16 +22,20 @@ static int16_t getTempRise(){
 static uint16_t getTime(){
 			return menu2("Enter Time S:",240,10);
 }
-void Options(uint32_t * data){
+void Options(struct tempC * data){
 	for(uint8_t i = 0; i < 6;i++){
 		uint8_t option = menu1("Select an option:\n>Set ramp Temp...\n Set Temp...\n C or F...\n Start...",4);
 		switch (option){
 			case 0:{
-				data[i] = (uint32_t) getTempRise() | ( ( (uint32_t)getTime() & ~(1ul << 15)) << 16) ;
+				data[i].stableTemp = false;
+				data[i].times = getTime();
+				data[i].temp = getTempRise();
 				continue;
 			}
 			case 1:{
-				data[i] = (uint32_t) getTemp() | ( ( (uint32_t)getTime() | (1ul << 15)) << 16) ;
+				data[i].stableTemp = true;
+				data[i].times = getTime();
+				data[i].temp = getTemp();
 				continue;
 			}
 			case 2:{
